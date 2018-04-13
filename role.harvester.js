@@ -2,7 +2,7 @@ var roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-	    if(creep.carry.energy < creep.carryCapacity) {
+        if(creep.carry.energy < creep.carryCapacity) {
             var sources = creep.room.find(FIND_SOURCES);
             if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(sources[0]);
@@ -13,33 +13,42 @@ var roleHarvester = {
                 creep.moveTo(Game.spawns['Spawn1']);
             }
         }
-	},
+    },
 
-	createNewOne: function(spawnStr) {
-	    Game.spawns[spawnStr].createCreep([WORK, CARRY, MOVE], "harvester" + (this.getLast() + 1) );
-	},
+    createNewOne: function(spawnStr) {
+        let name = "harvester" + (this.getLast() + 1);
+            console.log("new : " + name);
+        if(Game.spawns[spawnStr].canCreateCreep([WORK, CARRY, MOVE], name)) {
+            Game.spawns[spawnStr].createCreep([WORK, CARRY, MOVE], name);
+            Game.creeps[name].memory.role = "harvester";
+        }
 
-	getHarvesters: function() {
-	    let harvesters = _.filter(Game.creeps, function(o) { return o.name.includes("harvester") });
-	    console.log("nb harvester : " + harvesters);
-	    return harvesters;
-	},
+    },
 
-	getLast: function() {
-	    if(this.getNb() <= 0) {
-	        return 0
-	    }
-	    console.log(_.max(this.getHarvesters, function(o) {
-	        return Number.parseInt(o.name.match(/\d+/)[0]);
-	    } ));
-	    return _.max(this.getHarvesters, function(o) {
-	        return o.name.match(/\d+/)[0] 
-	    } );
-	},
+    getHarvesters: function() {
+        let harvesters = _.filter(Game.creeps, function(o) { return o.name.includes("harvester") });
+        return harvesters;
+    },
 
-	getNb: function() {
-	    return this.getHarvesters().length
-	}
+    getLast: function() {
+        if(this.getNb() <= 0) {
+            return 0
+        }
+        
+        let lastNb = _.max(this.getHarvesters, function(o) {
+            console.log("test " + o.name)
+            return o.name.match(/\d+/)[0]
+        } );
+        
+        //console.log(lastNb);
+        return lastNb;
+    },
+
+    getNb: function() {
+        let nb = this.getHarvesters().length;
+        //console.log("nb harvester : " + nb);
+        return nb;
+    }
 
 };
 

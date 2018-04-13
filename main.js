@@ -16,7 +16,7 @@ function checkSurvivor() {
 
     if(roleHarvester.getNb() < HARVESTER_COUNT) {
         var nbCreeps = HARVESTER_COUNT - roleHarvester.getNb()
-
+        console.log("NEED TO CREATE NEW");
         for(i=1; i<nbCreeps+1; i++){
             roleHarvester.createNewOne("Spawn1")
         }
@@ -24,11 +24,11 @@ function checkSurvivor() {
     }
 
     /*if(roleUpgrader.getNb() < UPGRADER_COUNT) {
-        var nbCreeps = HARVESTER_COUNT - roleUpgrader.getNb()
+    var nbCreeps = HARVESTER_COUNT - roleUpgrader.getNb()
 
-        createHarvesters(harvesters.length, nbCreeps)
+    createHarvesters(harvesters.length, nbCreeps)
 
-    }*/
+}*/
 
 }
 
@@ -36,10 +36,10 @@ function checkSurvivor() {
 
 /*function createHarvesters(offset, nbCreeps) {
 
-    for(i=1; i<nbCreeps+1; i++){
-        console.log("create one creep")
-        Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], "harvester" + offset + i);
-    }
+for(i=1; i<nbCreeps+1; i++){
+console.log("create one creep")
+Game.spawns['Spawn1'].createCreep([WORK, CARRY, MOVE], "harvester" + offset + i);
+}
 
 }*/
 
